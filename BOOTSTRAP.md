@@ -1,6 +1,6 @@
 # 首次初始化引导（BOOTSTRAP）
 
-> **若你正在维护 `mmchong-init` 素材库本身**：本文件面向「使用 mmchong-init 应用到**新业务仓库**」的场景；在本仓库内可忽略或删除根目录的 `BOOTSTRAP.md`。
+> **若你正在维护 `mmchong` 素材库本身**：本文件面向「使用 mmchong 应用到**新业务仓库**」的场景；在本仓库内可忽略或删除根目录的 `BOOTSTRAP.md`。
 
 本文件用于在 **首次** 将 mmchong 治理模板应用到仓库后，补齐 **真实项目信息**。全部确认并写入 `AGENTS.md`、`index.md` 等文档后，**删除本文件**，避免与长期文档重复。
 
@@ -70,5 +70,5 @@
 
 ## 5. 参考路径（按实际仓库调整）
 
-- 模板来源（若在 monorepo 或本地克隆了 mmchong-init）：`templates/AGENTS.example.md`、`templates/ROOT_INDEX.example.md`
+- 模板来源（若在 monorepo 或本地克隆了 mmchong）：`templates/AGENTS.example.md`、`templates/ROOT_INDEX.example.md`
 - 必读约定：根目录 `AGENTS.md`、`index.md`

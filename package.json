@@ -1,5 +1,5 @@
 {
-  "name": "mmchong-init",
+  "name": "mmchong",
   "private": true,
   "description": "Governance bundle repo; minimal package.json for emoji-regex (check-web-no-emoji.mjs) and prepare hook.",
   "scripts": {

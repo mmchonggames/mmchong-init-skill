@@ -35,7 +35,7 @@
 （项目根）/
 ├── （示例：src/ 或 apps/）/
 ├── harness/          # 若已启用：Agent 任务与记忆
-├── scripts/          # 若已从 mmchong-init 应用
+├── scripts/          # 若已从 mmchong 应用
 └── ...
 ```
 

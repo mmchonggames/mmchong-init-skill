@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================
-# validate.sh — mmchong.ai 统一验证脚本
+# validate.sh — mmchong 统一验证脚本
 # 运行：lint + typecheck + test
 # ============================================================
 
@@ -9,7 +9,7 @@ set -e
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$PROJECT_ROOT"
 
-echo "=== Validating mmchong.ai ==="
+echo "=== Validating mmchong ==="
 echo ""
 
 # 颜色定义

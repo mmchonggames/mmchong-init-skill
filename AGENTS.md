@@ -1,8 +1,8 @@
-# mmchong-init — Agent 导航
+# mmchong — Agent 导航
 
 ## 项目定位
 
-**一句话：** 从 [mmchong.ai](https://github.com/mmchong) 抽取并维护的 **项目治理与脚手架素材库**（文档约定、层级 `index.md`、Cursor Hooks、`harness`、校验脚本、Git pre-commit），供新仓库复制对齐；本仓库同时 **消费自身产出**（根目录 `scripts/`、`.cursor/`、`harness/` 由 `install/apply-to-repo.sh` 同步），便于在本仓库内迭代模板与门禁。
+**一句话：** 从 [mmchong 开源组织](https://github.com/mmchong) 相关实践中抽象并维护的 **项目治理与脚手架素材库**（文档约定、层级 `index.md`、Cursor Hooks、`harness`、校验脚本、Git pre-commit），供新仓库复制对齐；本仓库同时 **消费自身产出**（根目录 `scripts/`、`.cursor/`、`harness/` 由 `install/apply-to-repo.sh` 同步），便于在本仓库内迭代模板与门禁。
 
 ## 技术栈与工具
 
@@ -15,13 +15,13 @@
 ## 目录结构（一级）
 
 ```
-mmchong-init/
+mmchong/
 ├── scripts-bundle/     # 分发给目标仓库的脚本 **单一来源**（复制到消费者 `scripts/`）
 ├── scripts/            # 与 scripts-bundle 同步的本地副本（运行 hooks、stop_verify 等）
 ├── templates/          # AGENTS/ROOT_INDEX 示例、BOOTSTRAP、cursor、harness-skeleton
 ├── BOOTSTRAP.md        # 首次初始化引导（与 templates/BOOTSTRAP.md 同源；面向业务仓库分发，本仓库维护者可删除）
 ├── install/            # apply-to-repo.sh 等安装脚本
-├── skill/              # Cursor Skill 源文件（可复制到 ~/.cursor/skills/mmchong-init/）
+├── skill/              # Cursor Skill 源文件（可复制到 ~/.cursor/skills/mmchong/）
 ├── harness/            # Agent 任务/记忆骨架（与 templates/harness-skeleton 同源应用结果）
 ├── .cursor/            # Cursor Hooks（由 templates/cursor 应用）
 ├── AGENTS.md           # 本文件

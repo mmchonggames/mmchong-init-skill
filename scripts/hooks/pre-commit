@@ -1,11 +1,11 @@
 #!/bin/sh
-# mmchong-init 本仓库用：轻量 pre-commit（无 pnpm/turbo/单测全量管道）。
+# mmchong 本仓库用：轻量 pre-commit（无 pnpm/turbo/单测全量管道）。
 # 复制到其他业务仓库时，请按目标栈恢复或增补构建、lint、测试步骤。
 
 PROJECT_DIR=$(git rev-parse --show-toplevel)
 cd "$PROJECT_DIR" || exit 1
 
-echo "=== Pre-commit (mmchong-init lightweight) ==="
+echo "=== Pre-commit (mmchong lightweight) ==="
 
 STAGED_FILES=$(git diff --cached --name-only)
 if [ -z "$STAGED_FILES" ]; then

@@ -1,6 +1,6 @@
 # install
 
-将 **mmchong-init** 中的脚本包、Cursor 模板与 harness 骨架安装到目标 git 仓库的脚本目录。
+将 **mmchong** 中的脚本包、Cursor 模板与 harness 骨架安装到目标 git 仓库的脚本目录。
 
 ## 核心文件
 

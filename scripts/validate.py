@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-validate.py — mmchong.ai 统一验证管道
+validate.py — mmchong 统一验证管道
 
 整合以下检查，按顺序执行，任意一步失败则整体失败：
   1. TypeScript 编译检查（pnpm build:api --filter=api）
@@ -154,7 +154,7 @@ def main() -> None:
     checks_to_run = [(name, fn, skipped) for name, fn, skipped in checks]
 
     print(color("╔══════════════════════════════════════════════════════════╗", BOLD))
-    print(color("║         mmchong.ai 统一验证管道                           ║", BOLD))
+    print(color("║         mmchong 统一验证管道                         ║", BOLD))
     print(color("╚══════════════════════════════════════════════════════════╝", BOLD))
     print(f"  项目根目录：{project_root}")
     print(f"  检查项：{active_total}/{total}（跳过 {total - active_total} 项）")

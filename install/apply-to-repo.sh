@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
-# 将 mmchong-init 中的脚本包、Cursor hooks、harness 骨架应用到目标仓库。
+# 将本仓库（mmchong 治理素材）中的脚本包、Cursor hooks、harness 骨架应用到目标仓库。
 # 用法：./install/apply-to-repo.sh /absolute/or/relative/path/to/target-repo
-# 要求：在 mmchong-init 仓库根目录执行，或设置 MMCHONG_INIT_ROOT。
+# 要求：在本仓库根目录执行，或设置 MMCHONG_INIT_ROOT。
 
 set -eu
 
@@ -24,7 +24,7 @@ if [ ! -d "$TARGET/.git" ] && [ ! -f "$TARGET/.git" ]; then
   read -r _confirm || true
 fi
 
-echo "=== mmchong-init apply ==="
+echo "=== mmchong apply ==="
 echo "Source: $ROOT"
 echo "Target: $TARGET"
 

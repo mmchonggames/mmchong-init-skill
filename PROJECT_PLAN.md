@@ -1,6 +1,6 @@
-# mmchong-init — 项目规划
+# mmchong — 项目规划
 
-本仓库用于维护一套 **可复用的项目骨架与治理工具包**，目标是从 [mmchong.ai](../mmchong.ai) 中抽象出：文档约定、目录索引（`index.md`）、Cursor Hooks、`harness` 工作流、校验脚本与 Git 预提交流程，便于在新仓库中 **复制 / 脚手架化** 落地，并可选地配套 **Cursor Skill** 供 Agent 按规范初始化或校验项目。
+本仓库用于维护一套 **可复用的项目骨架与治理工具包**，目标是从 **上游参考仓库** 中抽象出：文档约定、目录索引（`index.md`）、Cursor Hooks、`harness` 工作流、校验脚本与 Git 预提交流程，便于在新仓库中 **复制 / 脚手架化** 落地，并可选地配套 **Cursor Skill** 供 Agent 按规范初始化或校验项目。
 
 ---
 
@@ -14,7 +14,7 @@
 
 ---
 
-## 2. 从 mmchong.ai 可抽取的资产清单
+## 2. 从上游参考仓库可抽取的资产清单
 
 ### 2.1 根与 Agent 文档
 
@@ -71,19 +71,19 @@
 
 ### 2.6 Git 与 pre-commit
 
-mmchong.ai 采用：**`prepare` 将 `scripts/hooks/pre-commit` 拷入 `.git/hooks/pre-commit`**，而非强制 Husky（仓库内无 `.husky`）。
+参考实现采用：**`prepare` 将 `scripts/hooks/pre-commit` 拷入 `.git/hooks/pre-commit`**，而非强制 Husky（仓库内无 `.husky`）。
 
 **规划动作**：
 
 - 文档化：**Husky vs 纯 `prepare`** 两种安装方式。
-- `pre-commit` 中与 monorepo 强绑定的步骤（如 `pnpm turbo build --filter=api --filter=web`）改为 **配置驱动**（`mmchong-init.yaml` 或环境变量）以便小项目裁剪。
+- `pre-commit` 中与 monorepo 强绑定的步骤（如 `pnpm turbo build --filter=api --filter=web`）改为 **配置驱动**（`mmchong.yaml` 或环境变量）以便小项目裁剪。
 
 ---
 
 ## 3. 建议的本仓库目录结构（演进中）
 
 ```
-mmchong-init/
+mmchong/
 ├── README.md                 # 仓库说明与快速导航
 ├── PROJECT_PLAN.md           # 本文件
 ├── templates/
@@ -91,11 +91,11 @@ mmchong-init/
 │   ├── ROOT_INDEX.md.tpl
 │   ├── cursor/
 │   └── harness/              # 骨架 + 各 index.md
-├── scripts-bundle/           # 从 mmchong.ai 同步的校验脚本（版本化）
+├── scripts-bundle/           # 从上游参考仓库同步的校验脚本（版本化）
 ├── install/                  # install-git-hooks.sh、apply-templates 等
 ├── skill/                    # Cursor Skill（SKILL.md + 可选资源）
 └── docs/
-    └── CONVENTIONS.md        # 与 mmchong.ai 对齐的约定摘要
+    └── CONVENTIONS.md        # 与上游参考仓库对齐的约定摘要
 ```
 
 ---
@@ -108,7 +108,7 @@ mmchong-init/
   - 读取目标仓库是否已有 `AGENTS.md` / 根索引；
   - 按模板生成或增量更新层级 `index.md`；
   - 复制 `scripts-bundle` 与 pre-commit，并提示运行 `pnpm validate` 等价命令（若存在）。
-- **约束**：Skill 内说明 **与 mmchong.ai 源码同步流程**（本仓库为 canonical，业务仓库为 consumer）。
+- **约束**：Skill 内说明 **与上游参考仓库 / 本仓库 canonical 的同步流程**（本仓库为 canonical，业务仓库为 consumer）。
 
 ---
 
@@ -117,11 +117,11 @@ mmchong-init/
 | 阶段 | 内容 | 产出 |
 |------|------|------|
 | **M0** | 本仓库立项、规划、git 初始化 | `PROJECT_PLAN.md`、`README.md` |
-| **M1** | 从 mmchong.ai **快照复制** scripts + hooks + harness 骨架到 `scripts-bundle/`、`templates/` | **已完成**：`scripts-bundle/`、`templates/cursor`（含已修正文案的 `hooks.json`）、`templates/harness-skeleton/`、`templates/*.example.md`、`install/apply-to-repo.sh`、`skill/SKILL.md`（技能名 **`mmchong-init`**） |
-| **M2** | 参数化模板（项目名、路径、pre-commit profile） | `*.tpl` + 一份示例 `mmchong-init.config.example.yaml` |
+| **M1** | 从上游参考仓库 **快照复制** scripts + hooks + harness 骨架到 `scripts-bundle/`、`templates/` | **已完成**：`scripts-bundle/`、`templates/cursor`（含已修正文案的 `hooks.json`）、`templates/harness-skeleton/`、`templates/*.example.md`、`install/apply-to-repo.sh`、`skill/SKILL.md`（技能名 **`mmchong`**） |
+| **M2** | 参数化模板（项目名、路径、pre-commit profile） | `*.tpl` + 一份示例 `mmchong.config.example.yaml` |
 | **M3** | 安装脚本与文档（install hooks、校验清单） | `install/*.sh` + `docs/CONVENTIONS.md` |
 | **M4** | Cursor `skill/`：`SKILL.md` + 资源路径 | 可在 Cursor 中加载的 Skill |
-| **M5** | （可选）CLI：`npx mmchong-init` 或本地 `pnpm dlx` 发布 | 降低复制成本 |
+| **M5** | （可选）CLI：`npx mmchong` 或本地 `pnpm dlx` 发布 | 降低复制成本 |
 
 ---
 
@@ -129,15 +129,15 @@ mmchong-init/
 
 - **仓库名残留**：迁移任何来自 `.cursor` 的 prompt 时必须全文检索旧项目名。
 - **pre-commit 过重**：默认完整校验可能拖慢提交；需提供「仅文档 + emoji + 行数」的轻量 profile。
-- **index.md 与 INDEX.md**：mmchong.ai 使用小写 `index.md`；若其他项目已用 `INDEX.md`，需在 Skill 与模板中 **二选一并全局一致**。
+- **index.md 与 INDEX.md**：本模板默认小写 `index.md`；若其他项目已用 `INDEX.md`，需在 Skill 与模板中 **二选一并全局一致**。
 
 ---
 
 ## 7. 与源仓库的关系
 
-- **源**：`/Users/liusong/Documents/04_self_project/17_mmchong/mmchong.ai`
-- **本仓库**：`/Users/liusong/Documents/04_self_project/17_mmchong/mmchong-init`
-- 更新流程建议：在 mmchong.ai 上验证规则变更 → 同步到 mmchong-init → 版本打 tag（如 `v0.1.0-scripts`）。
+- **上游参考仓库**：本地路径因环境而异；与 **本仓库** 通常置于同一父目录便于对照与同步。
+- **本仓库**（本地路径示例）：`/Users/liusong/Documents/04_self_project/17_mmchong/mmchong-init`
+- 更新流程建议：在上游参考仓库中验证规则变更 → 同步到 mmchong → 版本打 tag（如 `v0.1.0-scripts`）。
 
 ---
 
