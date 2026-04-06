@@ -117,7 +117,7 @@ mmchong-init/
 | 阶段 | 内容 | 产出 |
 |------|------|------|
 | **M0** | 本仓库立项、规划、git 初始化 | `PROJECT_PLAN.md`、`README.md` |
-| **M1** | 从 mmchong.ai **快照复制** scripts + hooks + harness 骨架到 `scripts-bundle/`、`templates/` | 可手工复制到新项目的文件集 |
+| **M1** | 从 mmchong.ai **快照复制** scripts + hooks + harness 骨架到 `scripts-bundle/`、`templates/` | **已完成**：`scripts-bundle/`、`templates/cursor`（含已修正文案的 `hooks.json`）、`templates/harness-skeleton/`、`templates/*.example.md`、`install/apply-to-repo.sh`、`skill/SKILL.md`（技能名 **`mmchong-init`**） |
 | **M2** | 参数化模板（项目名、路径、pre-commit profile） | `*.tpl` + 一份示例 `mmchong-init.config.example.yaml` |
 | **M3** | 安装脚本与文档（install hooks、校验清单） | `install/*.sh` + `docs/CONVENTIONS.md` |
 | **M4** | Cursor `skill/`：`SKILL.md` + 资源路径 | 可在 Cursor 中加载的 Skill |
