@@ -1,0 +1,124 @@
+#!/bin/sh
+# 提交前验证 Hook
+# 在 git commit 执行前运行，验证代码质量
+
+PROJECT_DIR=$(git rev-parse --show-toplevel)
+cd "$PROJECT_DIR" || exit 1
+
+echo "=== Pre-commit Validation ==="
+
+# 获取 staged 文件列表
+STAGED_FILES=$(git diff --cached --name-only)
+if [ -z "$STAGED_FILES" ]; then
+    echo "No staged files, skipping validation..."
+    exit 0
+fi
+
+# ========== 新增检查 0：前端源码禁止 emoji（须使用 lucide-react 图标） ==========
+echo "[Pre-check 0] Checking apps/web for emoji..."
+if ! node scripts/check-web-no-emoji.mjs --staged; then
+    echo "❌ Web emoji check failed — remove emoji and use lucide-react icons (https://lucide.dev/icons)"
+    exit 1
+fi
+echo "✅ Web emoji check passed"
+
+# ========== 新增检查 1：文件行数限制 ==========
+echo "[Pre-check 1] Checking file line limits..."
+ERRORS=""
+for FILE in $STAGED_FILES; do
+    # 只检查代码文件
+    case "$FILE" in
+        *.ts|*.tsx|*.js|*.jsx|*.py)
+            if [ -f "$FILE" ]; then
+                LINES=$(wc -l < "$FILE")
+                if [ "$LINES" -gt 500 ]; then
+                    ERRORS="${ERRORS}❌ ${FILE}: ${LINES} lines (exceeds 500)\n  → Please refactor this file into smaller modules (single responsibility principle)\n"
+                fi
+            fi
+            ;;
+    esac
+done
+
+if [ -n "$ERRORS" ]; then
+    echo ""
+    echo "=== File Line Limit Check FAILED ==="
+    echo -e "$ERRORS"
+    echo ""
+    echo "Tip: Use 'refactor: split {filename}' to divide into smaller modules"
+    exit 1
+fi
+echo "✅ File line limit check passed"
+
+# ========== 新增检查 2：索引文件校验 ==========
+echo "[Pre-check 2] Checking index.md documentation..."
+ERRORS=""
+# 仅校验仍存在于索引中的路径（排除纯删除，避免删除整目录时仍要求 DIR/index.md）
+INDEX_CHECK_FILES=$(git diff --cached --name-only --diff-filter=ACMRT)
+for FILE in $INDEX_CHECK_FILES; do
+    # 只检查代码文件
+    case "$FILE" in
+        *.ts|*.tsx|*.js|*.jsx|*.py|*.md)
+            # 获取文件所在目录
+            DIR=$(dirname "$FILE")
+            
+            # 根目录不需要 index.md
+            if [ "$DIR" = "." ]; then
+                continue
+            fi
+            
+            # 检查是否有 index.md
+            if [ ! -f "$DIR/index.md" ]; then
+                ERRORS="${ERRORS}❌ ${FILE}: Missing index.md in '${DIR}'\n  → Please create index.md in '${DIR}' to document this module\n"
+            fi
+            ;;
+    esac
+done
+
+if [ -n "$ERRORS" ]; then
+    echo ""
+    echo "=== Index Documentation Check FAILED ==="
+    echo -e "$ERRORS"
+    echo ""
+    echo "Options:"
+    echo "  (a) Create index.md in the directory: touch ${DIR}/index.md"
+    echo "  (b) Update existing index.md to reflect the new file"
+    echo ""
+    echo "Reminder: After creating/updating index.md, re-stage and commit"
+    exit 1
+fi
+echo "✅ Index documentation check passed"
+
+# ========== 原有检查 1：TypeScript 类型检查 (via turbo build) ==========
+echo "[1/4] Running TypeScript check (via turbo build)..."
+if ! pnpm turbo build --filter=api --filter=web 2>&1; then
+    echo "❌ TypeScript check failed"
+    exit 1
+fi
+echo "✅ TypeScript check passed"
+
+# ========== 原有检查 2：Lint 检查 ==========
+echo "[2/4] Running lint..."
+if ! pnpm lint 2>&1; then
+    echo "❌ Lint failed"
+    exit 1
+fi
+echo "✅ Lint passed"
+
+# ========== 原有检查 3：架构 lint（跨层依赖检查） ==========
+echo "[3/4] Running architecture lint..."
+if ! python3 scripts/lint-deps.py 2>&1; then
+    echo "❌ Architecture lint failed"
+    exit 1
+fi
+echo "✅ Architecture lint passed"
+
+# ========== 原有检查 4：测试 ==========
+echo "[4/4] Running tests..."
+if ! pnpm --filter api test && pnpm --filter web test 2>&1; then
+    echo "❌ Tests failed"
+    exit 1
+fi
+echo "✅ Tests passed"
+
+echo "=== Pre-commit Validation Passed ==="
+exit 0
