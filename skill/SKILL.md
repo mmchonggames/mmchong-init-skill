@@ -20,6 +20,15 @@ description: >-
 
 素材以独立仓库维护（与本技能同名）：路径示例为与 `mmchong.ai` 同级的 **`mmchong-init`**。业务仓库是 **消费者**：以该仓库的 `scripts-bundle/`、`templates/` 为单一来源，按需同步。
 
+## 新 clone 之后（mmchong-init 本仓库）
+
+在 **mmchong-init** 仓库根目录执行 **`npm install`** 一次：
+
+- 安装 **`emoji-regex`**（`scripts/check-web-no-emoji.mjs` 依赖）。
+- 触发根目录 **`package.json` 的 `prepare`**，将 `scripts/hooks/pre-commit` 复制到 **`.git/hooks/pre-commit`** 并赋予可执行权限；否则提交前校验与 README 约定不会自动生效。
+
+Agent 在本仓库内操作脚本或协助用户提交前，若发现 `node_modules/` 不存在或 pre-commit 未安装，应提示或代为执行上述命令。
+
 ## Steps (agent)
 
 1. **确认目标**：是新仓库脚手架，还是在现有仓库中增量添加 hooks/scripts/harness。
@@ -28,7 +37,7 @@ description: >-
    - 在 **mmchong-init** 仓库中执行：`install/apply-to-repo.sh <目标仓库路径>`，将 `scripts-bundle` 复制为 `<target>/scripts/`，将 `templates/cursor` 复制为 `<target>/.cursor/`，若不存在则复制 `templates/harness-skeleton` 为 `<target>/harness/`。
    - 或手工复制：`mmchong-init` 内对应目录 → 目标仓库（见下表）。
 4. **文档**：将 `templates/AGENTS.example.md`、`templates/ROOT_INDEX.example.md` 作为起点，**改写** 为当前项目名与栈；根目录保留 **`index.md`（小写）** 与 **`AGENTS.md`** 的约定与 mmchong 一致。
-5. **依赖**：`check-web-no-emoji.mjs` 需要根目录安装 `emoji-regex`；Python 脚本建议 3.10+；`lint-deps.py` / `validate.py` 面向 **pnpm + turbo** monorepo，小项目需删减或改环境变量跳过项。
+5. **依赖**：**mmchong-init 本仓库** 见上文「新 clone 之后」的 **`npm install`**；其他目标仓库若复制了 `check-web-no-emoji.mjs`，同样需要根目录安装 `emoji-regex`（或等价包管理器）。Python 脚本建议 3.10+；`lint-deps.py` / `validate.py` 面向 **pnpm + turbo** monorepo，小项目需删减或改环境变量跳过项。
 6. **Git hooks**：将 `scripts/hooks/pre-commit` 安装到 `.git/hooks/pre-commit`（可参考 mmchong.ai 根目录 `package.json` 的 `prepare` 脚本）；**务必按目标仓库** 调整 turbo filter、测试与构建命令。
 7. **Cursor**：`templates/cursor/hooks.json` 中 `sessionStart` / `preCompact` 与 `hooks/prompts/` 下 Markdown 应保持语义同步；修改 prompt 时先改 Markdown，再同步到 `hooks.json`。
 
@@ -53,7 +62,14 @@ description: >-
 
 ## 验证
 
-在目标仓库中（按实际脚本调整）：
+在 **mmchong-init** 本仓库中，若尚未安装 Node 依赖，先执行 **`npm install`**，再运行：
+
+```bash
+node scripts/check-web-no-emoji.mjs
+python3 scripts/verify/large_py_files.py --fail-on-over --lines 500 --no-guidance
+```
+
+在 **其他** 目标仓库中（按实际脚本调整）：
 
 ```bash
 python3 scripts/lint-deps.py
