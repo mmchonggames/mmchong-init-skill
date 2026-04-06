@@ -2,7 +2,7 @@
 
 面向目标仓库的 **可复制模板**，属于 **mmchong** 治理体系；不直接参与上游应用仓库的构建。
 
-**命名（仅本文件说明）：** 从 Git 克隆本脚手架仓库时，本地目录名常为 **`mmchong-init`**；仓库其余文档以主体名 **mmchong** 称呼本体系。首次把模板应用到业务仓库时，请结合下表与仓库根目录 `install/apply-to-repo.sh`。
+**命名（仅本文件说明）：** 从 Git 克隆本脚手架仓库时，本地目录名常为 **`mmchong-init`**；Cursor Agent **技能注册名** 亦为 **`mmchong-init`**（安装目录 `~/.cursor/skills/mmchong-init/`）。仓库其余文档以主体名 **mmchong** 称呼本体系。首次把模板应用到业务仓库时，请结合下表与仓库根目录 `install/apply-to-repo.sh`。
 
 | 路径 | 说明 |
 |------|------|

@@ -1,24 +1,24 @@
 ---
-name: mmchong
+name: mmchong-init
 description: >-
-  Applies mmchong-style project governance from the mmchong bundle: AGENTS.md
+  Applies mmchong-style project governance from the mmchong-init skill bundle: AGENTS.md
   and hierarchical index.md conventions, Cursor hooks under .cursor/, harness/
   task/memory layout, validation scripts under scripts/, and git pre-commit wiring.
-  Use when bootstrapping a repo, syncing governance from mmchong, installing
-  Cursor stop/session hooks, or when the user mentions mmchong, harness
-  tasks, index.md per-folder docs, or pre-commit validation scripts.
+  Use when bootstrapping a repo, syncing governance from mmchong-init, installing
+  Cursor stop/session hooks, or when the user mentions mmchong-init, mmchong governance,
+  harness tasks, index.md per-folder docs, or pre-commit validation scripts.
 ---
 
-# mmchong
+# mmchong-init
 
 ## When to use
 
 - 用户希望 **按 mmchong 约定** 初始化或补强仓库：根目录 `AGENTS.md`、层级 `index.md`、**harness** 目录、**`.cursor/hooks`**、**`scripts/`** 校验与 **pre-commit**。
-- 用户提到从 **mmchong** 仓库复制模板、对齐文档与门禁规则，或处理 **`BOOTSTRAP.md` 首次初始化**。
+- 用户提到 **mmchong-init** 技能、从 **mmchong** 治理素材仓库复制模板、对齐文档与门禁规则，或处理 **`BOOTSTRAP.md` 首次初始化**。
 
 ## Canonical source
 
-素材以独立仓库维护（与本技能同名）：路径示例为将 **`mmchong`** 与业务仓库放在 **同级目录**。业务仓库是 **消费者**：以该仓库的 `scripts-bundle/`、`templates/` 为单一来源，按需同步。
+素材以独立仓库维护。**技能注册名** 为 **`mmchong-init`**（安装路径 `~/.cursor/skills/mmchong-init/`）。路径示例：将本仓库克隆目录（常为 **`mmchong-init`**，见 `templates/README.md`）与业务仓库放在 **同级目录**。业务仓库是 **消费者**：以该仓库的 `scripts-bundle/`、`templates/` 为单一来源，按需同步。
 
 ## 新 clone 之后（mmchong 本仓库）
 
@@ -53,8 +53,8 @@ Agent 在本仓库内操作脚本或协助用户提交前，若发现 `node_modu
 
 ## Install this skill (user)
 
-- **个人全局**：将本仓库的 `skill/` 目录复制为 `~/.cursor/skills/mmchong/`（内含本 `SKILL.md`）。
-- **仅当前项目**：复制为 `<repo>/.cursor/skills/mmchong/SKILL.md`（若 Cursor 版本支持项目级 skills）。
+- **个人全局**：将本仓库的 `skill/` 目录复制为 `~/.cursor/skills/mmchong-init/`（内含本 `SKILL.md`）。
+- **仅当前项目**：复制为 `<repo>/.cursor/skills/mmchong-init/SKILL.md`（若 Cursor 版本支持项目级 skills）。
 
 ## Stop hook 与 index 约定
 

@@ -21,7 +21,7 @@ mmchong/
 ├── templates/          # AGENTS/ROOT_INDEX 示例、BOOTSTRAP、cursor、harness-skeleton
 ├── BOOTSTRAP.md        # 首次初始化引导（与 templates/BOOTSTRAP.md 同源；面向业务仓库分发，本仓库维护者可删除）
 ├── install/            # apply-to-repo.sh 等安装脚本
-├── skill/              # Cursor Skill 源文件（可复制到 ~/.cursor/skills/mmchong/）
+├── skill/              # Cursor Skill 源文件（技能名 mmchong-init；可复制到 ~/.cursor/skills/mmchong-init/）
 ├── harness/            # Agent 任务/记忆骨架（与 templates/harness-skeleton 同源应用结果）
 ├── .cursor/            # Cursor Hooks（由 templates/cursor 应用）
 ├── AGENTS.md           # 本文件
