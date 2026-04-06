@@ -1,0 +1,12 @@
+{
+  "name": "mmchong-init",
+  "private": true,
+  "description": "Governance bundle repo; minimal package.json for emoji-regex (check-web-no-emoji.mjs) and prepare hook.",
+  "scripts": {
+    "prepare": "cp scripts/hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit",
+    "check:web-no-emoji": "node scripts/check-web-no-emoji.mjs"
+  },
+  "dependencies": {
+    "emoji-regex": "^10.4.0"
+  }
+}

@@ -12,7 +12,11 @@
 | [skill/SKILL.md](./skill/SKILL.md) | Cursor Skill **`mmchong-init`**（可复制到 `~/.cursor/skills/mmchong-init/`） |
 | [PROJECT_PLAN.md](./PROJECT_PLAN.md) | 里程碑与风险 |
 
-## 快速使用
+## 本仓库自身（开发 mmchong-init 时）
+
+在仓库根目录执行一次 `npm install`（安装 `emoji-regex` 供 `check-web-no-emoji.mjs` 使用，并通过 `prepare` 安装 Git pre-commit）。治理文件入口：**[AGENTS.md](./AGENTS.md)**、**[index.md](./index.md)**。可将 `skill/SKILL.md` 同步到 `~/.cursor/skills/mmchong-init/`，或使用项目内 **`.cursor/skills/mmchong-init/`**。
+
+## 快速使用（对外分发）
 
 在 **本仓库根目录** 执行：
 
@@ -20,7 +24,7 @@
 ./install/apply-to-repo.sh /path/to/target-repo
 ```
 
-然后按 `templates/README.md` 与 `skill/SKILL.md` 中的说明改写 `AGENTS.md`、调整 `scripts/hooks/pre-commit`。
+然后按 `templates/README.md` 与 `skill/SKILL.md` 中的说明改写目标仓库的 `AGENTS.md`；若目标为 monorepo，请在 `scripts/hooks/pre-commit` 中追加构建、lint 与测试步骤。
 
 ## 仓库
 
