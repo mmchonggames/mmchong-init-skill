@@ -4,7 +4,7 @@
 
 ## 核心文件
 
-- `apply-to-repo.sh` — 将 `scripts-bundle/` 复制为 `<target>/scripts/`，`templates/cursor/` 复制为 `<target>/.cursor/`，若不存在则复制 `templates/harness-skeleton` 为 `<target>/harness/`。
+- `apply-to-repo.sh` — 将 `scripts-bundle/` 复制为 `<target>/scripts/`，`templates/cursor/` 复制为 `<target>/.cursor/`，若不存在则复制 `templates/harness-skeleton` 为 `<target>/harness/`；若 `<target>/BOOTSTRAP.md` 不存在则复制 `templates/BOOTSTRAP.md` 到目标根目录。
 
 ## 关联
 

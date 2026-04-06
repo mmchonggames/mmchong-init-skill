@@ -29,21 +29,32 @@ echo "Source: $ROOT"
 echo "Target: $TARGET"
 
 mkdir -p "$TARGET/scripts"
-echo "[1/3] Copying scripts-bundle -> target/scripts ..."
+echo "[1/4] Copying scripts-bundle -> target/scripts ..."
 cp -R "$ROOT/scripts-bundle/"* "$TARGET/scripts/"
 
 mkdir -p "$TARGET/.cursor"
-echo "[2/3] Copying templates/cursor -> target/.cursor ..."
+echo "[2/4] Copying templates/cursor -> target/.cursor ..."
 cp "$ROOT/templates/cursor/hooks.json" "$TARGET/.cursor/hooks.json"
 rm -rf "$TARGET/.cursor/hooks"
 cp -R "$ROOT/templates/cursor/hooks" "$TARGET/.cursor/hooks"
 
 if [ -d "$TARGET/harness" ]; then
-  echo "[3/3] Target already has harness/ — skipping harness-skeleton (merge manually if needed)."
+  echo "[3/4] Target already has harness/ — skipping harness-skeleton (merge manually if needed)."
 else
-  echo "[3/3] Copying templates/harness-skeleton -> target/harness ..."
+  echo "[3/4] Copying templates/harness-skeleton -> target/harness ..."
   cp -R "$ROOT/templates/harness-skeleton" "$TARGET/harness"
 fi
 
+if [ -f "$ROOT/templates/BOOTSTRAP.md" ]; then
+  echo "[4/4] templates/BOOTSTRAP.md -> target/BOOTSTRAP.md ..."
+  if [ ! -f "$TARGET/BOOTSTRAP.md" ]; then
+    cp "$ROOT/templates/BOOTSTRAP.md" "$TARGET/BOOTSTRAP.md"
+  else
+    echo "  (target already has BOOTSTRAP.md — skip; remove it first if you need a fresh copy)"
+  fi
+else
+  echo "[4/4] templates/BOOTSTRAP.md not found — skip."
+fi
+
 echo "Done."
-echo "Next: customize scripts/hooks/pre-commit, add package.json prepare hook if desired, install personal skill from skill/SKILL.md instructions."
+echo "Next: copy templates/AGENTS.example.md -> AGENTS.md and ROOT_INDEX.example.md -> index.md as needed; follow BOOTSTRAP.md for first-time fill-in; customize scripts/hooks/pre-commit; npm install if using check-web-no-emoji; install skill from skill/SKILL.md if desired."

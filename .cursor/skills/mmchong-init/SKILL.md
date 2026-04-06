@@ -14,7 +14,7 @@ description: >-
 ## When to use
 
 - 用户希望 **按 mmchong 约定** 初始化或补强仓库：根目录 `AGENTS.md`、层级 `index.md`、**harness** 目录、**`.cursor/hooks`**、**`scripts/`** 校验与 **pre-commit**。
-- 用户提到从 **mmchong-init** 仓库复制模板、或对齐 **mmchong.ai** 的文档与门禁规则。
+- 用户提到从 **mmchong-init** 仓库复制模板、对齐文档与门禁规则，或处理 **`BOOTSTRAP.md` 首次初始化**。
 
 ## Canonical source
 
@@ -34,9 +34,9 @@ Agent 在本仓库内操作脚本或协助用户提交前，若发现 `node_modu
 1. **确认目标**：是新仓库脚手架，还是在现有仓库中增量添加 hooks/scripts/harness。
 2. **读取** 目标仓库是否已有 `AGENTS.md`、根 `index.md`、`harness/`、`.cursor/`、`scripts/`；避免不经确认覆盖非空目录（尤其 `harness/`、`scripts/hooks/pre-commit`）。
 3. **应用文件**（二选一）：
-   - 在 **mmchong-init** 仓库中执行：`install/apply-to-repo.sh <目标仓库路径>`，将 `scripts-bundle` 复制为 `<target>/scripts/`，将 `templates/cursor` 复制为 `<target>/.cursor/`，若不存在则复制 `templates/harness-skeleton` 为 `<target>/harness/`。
+   - 在 **mmchong-init** 仓库中执行：`install/apply-to-repo.sh <目标仓库路径>`，将 `scripts-bundle` 复制为 `<target>/scripts/`，将 `templates/cursor` 复制为 `<target>/.cursor/`，若不存在则复制 `templates/harness-skeleton` 为 `<target>/harness/`，并在目标 **尚无** `BOOTSTRAP.md` 时复制 `templates/BOOTSTRAP.md` 到目标根目录。
    - 或手工复制：`mmchong-init` 内对应目录 → 目标仓库（见下表）。
-4. **文档**：将 `templates/AGENTS.example.md`、`templates/ROOT_INDEX.example.md` 作为起点，**改写** 为当前项目名与栈；根目录保留 **`index.md`（小写）** 与 **`AGENTS.md`** 的约定与 mmchong 一致。
+4. **文档与首次初始化**：若目标为 **新项目** 或根目录存在 **`BOOTSTRAP.md`**，优先按该文件引导用户确认项目内容、技术栈与目录，再据此将 `templates/AGENTS.example.md`、`templates/ROOT_INDEX.example.md` 改写为根目录 **`AGENTS.md`**、**`index.md`**；全部确认后可删除 **`BOOTSTRAP.md`**。根目录保留 **`index.md`（小写）** 与 **`AGENTS.md`** 的约定。
 5. **依赖**：**mmchong-init 本仓库** 见上文「新 clone 之后」的 **`npm install`**；其他目标仓库若复制了 `check-web-no-emoji.mjs`，同样需要根目录安装 `emoji-regex`（或等价包管理器）。Python 脚本建议 3.10+；`lint-deps.py` / `validate.py` 面向 **pnpm + turbo** monorepo，小项目需删减或改环境变量跳过项。
 6. **Git hooks**：将 `scripts/hooks/pre-commit` 安装到 `.git/hooks/pre-commit`（可参考 mmchong.ai 根目录 `package.json` 的 `prepare` 脚本）；**务必按目标仓库** 调整 turbo filter、测试与构建命令。
 7. **Cursor**：`templates/cursor/hooks.json` 中 `sessionStart` / `preCompact` 与 `hooks/prompts/` 下 Markdown 应保持语义同步；修改 prompt 时先改 Markdown，再同步到 `hooks.json`。
@@ -49,6 +49,7 @@ Agent 在本仓库内操作脚本或协助用户提交前，若发现 `node_modu
 | `templates/cursor/hooks.json` | `.cursor/hooks.json` |
 | `templates/cursor/hooks/` | `.cursor/hooks/` |
 | `templates/harness-skeleton/` | `harness/`（可选） |
+| `templates/BOOTSTRAP.md` | `BOOTSTRAP.md`（目标根目录；`apply-to-repo.sh` 仅在目标无此文件时复制） |
 
 ## Install this skill (user)
 

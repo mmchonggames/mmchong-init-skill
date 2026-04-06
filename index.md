@@ -13,7 +13,7 @@
 ## 一级目录职责
 
 - **`scripts-bundle/`** — 复制到消费者仓库 `scripts/` 的权威内容；本仓库的 `scripts/` 为其应用副本。
-- **`templates/`** — `cursor/`、`harness-skeleton/`、`*.example.md` 等模板。
+- **`templates/`** — `cursor/`、`harness-skeleton/`、`AGENTS.example.md`、`ROOT_INDEX.example.md`、`BOOTSTRAP.md` 等模板。
 - **`install/`** — 将 bundle 应用到目标路径的 shell 脚本。
 - **`skill/`** — Cursor Skill `mmchong-init` 的源；可同步到 `~/.cursor/skills/mmchong-init/` 或本仓库 `.cursor/skills/mmchong-init/`。
 - **`harness/`** — Agent 记忆、任务队列、trace、context 的空骨架。

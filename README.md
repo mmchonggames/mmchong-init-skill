@@ -7,7 +7,7 @@
 | 路径 | 说明 |
 |------|------|
 | [scripts-bundle/](./scripts-bundle/) | 可整体复制到目标仓库 `scripts/` 的校验与 pre-commit |
-| [templates/](./templates/) | `cursor/`、`harness-skeleton/`、`AGENTS.example.md`、`ROOT_INDEX.example.md` |
+| [templates/](./templates/) | `cursor/`、`harness-skeleton/`、`AGENTS.example.md`、`ROOT_INDEX.example.md`、`BOOTSTRAP.md`（首次初始化引导） |
 | [install/apply-to-repo.sh](./install/apply-to-repo.sh) | 将上述内容应用到任意目标 git 仓库 |
 | [skill/SKILL.md](./skill/SKILL.md) | Cursor Skill **`mmchong-init`**（可复制到 `~/.cursor/skills/mmchong-init/`） |
 | [PROJECT_PLAN.md](./PROJECT_PLAN.md) | 里程碑与风险 |
@@ -24,7 +24,7 @@
 ./install/apply-to-repo.sh /path/to/target-repo
 ```
 
-然后按 `templates/README.md` 与 `skill/SKILL.md` 中的说明改写目标仓库的 `AGENTS.md`；若目标为 monorepo，请在 `scripts/hooks/pre-commit` 中追加构建、lint 与测试步骤。
+然后按 `templates/README.md` 与 `skill/SKILL.md`：若目标根目录有 **`BOOTSTRAP.md`**（安装脚本在未存在时写入），先按该文件完成项目信息确认并填充 **`AGENTS.md`**、**`index.md`**（由 `AGENTS.example.md`、`ROOT_INDEX.example.md` 复制改写），完成后删除 `BOOTSTRAP.md`。若目标为 monorepo，请在 `scripts/hooks/pre-commit` 中追加构建、lint 与测试步骤。
 
 ## 仓库
 
