@@ -1,12 +1,11 @@
-# hooks
+# hooks（模板）
 
-Cursor **stop** 钩子可执行脚本与会话提示 Markdown。
+与仓库根 **`.cursor/hooks/`** 内容对应；维护时与 `hooks.json`、本目录下 `prompts/` 同步。
 
 ## 核心文件
 
-- `stop_verify.py` — 调用 `scripts/verify/large_py_files.py`；检查已变更 `.py` 所在目录是否有 `index.md`
-- `stop_task_harness.py` — 读取 `harness/context/current-task.md` 中的 `active_task_id` 与 `harness/tasks/active/task-*.md` 一致性
-- `prompts/session_start.md`、`prompts/precompact_memory.md` — 与 `hooks.json` 中 prompt 同步维护
+- `stop_verify.py`、`stop_task_harness.py`
+- `prompts/` — 见 [prompts/index.md](prompts/index.md)
 
 ## 关联
 

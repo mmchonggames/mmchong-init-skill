@@ -1,11 +1,11 @@
 #!/bin/sh
-# mmchong 本仓库用：轻量 pre-commit（无 pnpm/turbo/单测全量管道）。
-# 复制到其他业务仓库时，请按目标栈恢复或增补构建、lint、测试步骤。
+# 默认轻量 pre-commit：emoji（apps/web）、行数、index.md 旁路检查。
+# 业务 monorepo 请按需追加：pnpm turbo build、lint、lint-deps、test 等。
 
 PROJECT_DIR=$(git rev-parse --show-toplevel)
 cd "$PROJECT_DIR" || exit 1
 
-echo "=== Pre-commit (mmchong lightweight) ==="
+echo "=== Pre-commit (lightweight default) ==="
 
 STAGED_FILES=$(git diff --cached --name-only)
 if [ -z "$STAGED_FILES" ]; then
@@ -13,7 +13,6 @@ if [ -z "$STAGED_FILES" ]; then
     exit 0
 fi
 
-# 0) apps/web 路径下禁止 emoji（本仓库无 apps/web 时通常无文件可扫，直接通过）
 echo "[0] Web emoji check (apps/web only)..."
 if [ -f scripts/check-web-no-emoji.mjs ]; then
     if ! node scripts/check-web-no-emoji.mjs --staged; then
@@ -23,7 +22,6 @@ if [ -f scripts/check-web-no-emoji.mjs ]; then
 fi
 echo "OK"
 
-# 1) 单文件行数（与 stop_verify / AGENTS 约定一致）
 echo "[1] Line limits (ts/tsx/js/jsx/py)..."
 ERRORS=""
 for FILE in $STAGED_FILES; do
@@ -44,7 +42,6 @@ if [ -n "$ERRORS" ]; then
 fi
 echo "OK"
 
-# 2) 有代码/文档变更的目录需有 index.md（根目录除外）
 echo "[2] index.md beside staged changes..."
 ERRORS=""
 INDEX_CHECK_FILES=$(git diff --cached --name-only --diff-filter=ACMRT)

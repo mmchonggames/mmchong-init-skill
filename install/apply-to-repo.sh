@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# 将本仓库（mmchong 治理素材）中的脚本包、Cursor hooks、harness 骨架应用到目标仓库。
+# 将本仓库（mmchong 治理素材）中的脚本包、Cursor/Claude hooks、harness 骨架应用到目标仓库。
 # 用法：./install/apply-to-repo.sh /absolute/or/relative/path/to/target-repo
 # 要求：在本仓库根目录执行，或设置 MMCHONG_INIT_ROOT。
 
@@ -29,31 +29,37 @@ echo "Source: $ROOT"
 echo "Target: $TARGET"
 
 mkdir -p "$TARGET/scripts"
-echo "[1/4] Copying scripts-bundle -> target/scripts ..."
+echo "[1/5] Copying scripts-bundle -> target/scripts ..."
 cp -R "$ROOT/scripts-bundle/"* "$TARGET/scripts/"
 
 mkdir -p "$TARGET/.cursor"
-echo "[2/4] Copying templates/cursor -> target/.cursor ..."
+echo "[2/5] Copying templates/cursor -> target/.cursor ..."
 cp "$ROOT/templates/cursor/hooks.json" "$TARGET/.cursor/hooks.json"
 rm -rf "$TARGET/.cursor/hooks"
 cp -R "$ROOT/templates/cursor/hooks" "$TARGET/.cursor/hooks"
 
+mkdir -p "$TARGET/.claude"
+echo "[3/5] Copying templates/claude -> target/.claude ..."
+cp "$ROOT/templates/claude/settings.json" "$TARGET/.claude/settings.json"
+rm -rf "$TARGET/.claude/hooks"
+cp -R "$ROOT/templates/claude/hooks" "$TARGET/.claude/hooks"
+
 if [ -d "$TARGET/harness" ]; then
-  echo "[3/4] Target already has harness/ — skipping harness-skeleton (merge manually if needed)."
+  echo "[4/5] Target already has harness/ — skipping harness-skeleton (merge manually if needed)."
 else
-  echo "[3/4] Copying templates/harness-skeleton -> target/harness ..."
+  echo "[4/5] Copying templates/harness-skeleton -> target/harness ..."
   cp -R "$ROOT/templates/harness-skeleton" "$TARGET/harness"
 fi
 
 if [ -f "$ROOT/templates/BOOTSTRAP.md" ]; then
-  echo "[4/4] templates/BOOTSTRAP.md -> target/BOOTSTRAP.md ..."
+  echo "[5/5] templates/BOOTSTRAP.md -> target/BOOTSTRAP.md ..."
   if [ ! -f "$TARGET/BOOTSTRAP.md" ]; then
     cp "$ROOT/templates/BOOTSTRAP.md" "$TARGET/BOOTSTRAP.md"
   else
     echo "  (target already has BOOTSTRAP.md — skip; remove it first if you need a fresh copy)"
   fi
 else
-  echo "[4/4] templates/BOOTSTRAP.md not found — skip."
+  echo "[5/5] templates/BOOTSTRAP.md not found — skip."
 fi
 
 echo "Done."

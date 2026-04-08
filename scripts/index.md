@@ -1,6 +1,6 @@
 # scripts
 
-本目录为 **mmchong** 分发给消费者仓库的自动化脚本包（复制到目标仓库根目录的 **`scripts/`**）。**在 mmchong 仓库自身**中，根目录 **`scripts-bundle/`** 为单一来源，本目录由 `./install/apply-to-repo.sh "$(pwd)"` 同步，便于本地跑 hooks 与校验。
+本目录为 **mmchong** 分发给消费者仓库的自动化脚本包（复制到目标仓库根目录的 **`scripts/`**）。**在 mmchong 仓库自身**中，根目录 **`scripts/`** 与本目录内容对应，由 `./install/apply-to-repo.sh "$(pwd)"` 同步，便于本地跑 hooks 与校验。
 
 ## 主要内容
 

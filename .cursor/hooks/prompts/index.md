@@ -1,6 +1,6 @@
 # prompts
 
-与 **`hooks.json`** 中 `sessionStart`、`preCompact` 内联文案保持语义一致的 Markdown 草稿；修改时先编辑本目录，再同步到 `hooks.json`。
+与 **`hooks.json`** 中 `sessionStart`、`preCompact` 内联文案保持语义一致的 Markdown 草稿；修改时先编辑本目录，再同步到目标仓库 `.cursor/hooks.json`。
 
 ## 核心文件
 
